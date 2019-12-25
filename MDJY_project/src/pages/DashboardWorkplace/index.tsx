@@ -122,7 +122,8 @@ class DashboardWorkplace extends Component<DashboardWorkplaceProps> {
                     description={
                         <span className={styles.datetime} title={item.updatedAt}>
                             {moment(item.updatedAt).fromNow()}
-                        </span>}
+                        </span>
+                    }
                 />
             </List.Item>
         );
@@ -152,9 +153,9 @@ class DashboardWorkplace extends Component<DashboardWorkplaceProps> {
                         <Card
                             className={styles.projectList}
                             style={{ marginBottom: 24 }}
-                            title="进行中的项目"
+                            title="拥有的项目"
                             bordered={false}
-                            extra={<Link to="/">全部项目</Link>}
+                            // extra={<Link to="/">全部项目</Link>}
                             loading={projectLoading}
                             bodyStyle={{ padding: 0 }}
                         >
@@ -164,13 +165,14 @@ class DashboardWorkplace extends Component<DashboardWorkplaceProps> {
                                         <Card.Meta
                                             title={
                                                 <div className={styles.cardTitle}>
-                                                    <Avatar size="small" src={item.logo} />
+                                                    {/* <Avatar size="small" src={item.logo} /> */}
                                                     <Link to={item.href}>{item.title}</Link>
-                                                </div>}
+                                                </div>
+                                            }
                                             description={item.description}
                                         />
                                         <div className={styles.projectItemContent}>
-                                            <Link to={item.memberLink}>{item.member || ''}</Link>
+                                            {/* <Link to={item.memberLink}>{item.member || ''}</Link> */}
                                             {item.updatedAt && (
                                                 <span
                                                     className={styles.datetime}

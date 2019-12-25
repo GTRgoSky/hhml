@@ -25,6 +25,6 @@ let app = new App().app;
 const PORT = 3099;
 
 app.listen(PORT, () => {
-    console.log('Express server listening on port ' + PORT);
+    console.log('Express server listening on  http://localhost:' + PORT);
 });
 export default app;

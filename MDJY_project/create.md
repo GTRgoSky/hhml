@@ -3,6 +3,7 @@
 yarn global add umi
 
 2、配置express：
+https://restful-api-node-typescript.books.dalenguyen.me/en/latest/implement-routing-and-crud.html
 进入server
 npm init
 npm install -g typescript ts-node
