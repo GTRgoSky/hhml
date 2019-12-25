@@ -1,0 +1,43 @@
+{
+    "compilerOptions": {
+        //The output module type (in your .js files). Node uses commonjs, so that is what we use
+        //输出模块类型(在.js文件中)。Node使用commonjs，这就是我们使用的
+        "module": "commonjs",
+        //Allows usage of an alternate module import syntax: import foo from 'foo';
+        //允许使用替代模块导入语法:从'foo'导入foo;
+        "esModuleInterop": true,
+        //The output language level. Node supports ES6, so we can target that here
+        //输出语言级别。Node支持ES6，所以我们可以在这里针对它
+        "target": "es6",
+        //Enables a stricter setting which throws errors when something has a default any value
+        //启用更严格的设置，当某些东西具有默认值时抛出错误
+        "noImplicitAny": true,
+        //TypeScript attempts to mimic Node's module resolution strategy. 
+        // https://www.typescriptlang.org/docs/handbook/module-resolution.html#node
+        // TypeScript试图模拟Node的模块解析策略。
+        "moduleResolution": "node",
+        //We want source maps to be output along side our JavaScript. See the debugging section
+        //https://github.com/Microsoft/TypeScript-Node-Starter#debugging
+        //我们希望源映射与JavaScript一起输出。参见调试部分
+        "sourceMap": true,
+        //Location to output .js files after compilation
+        // 编译后输出.js文件的位置
+        "outDir": "dist",
+        //Part of configuring module resolution. See path mapping section
+        // https://github.com/Microsoft/TypeScript-Node-Starter#installing-dts-files-from-definitelytyped
+        // 配置模块解析的一部分。参见路径映射部分
+        "baseUrl": ".",
+        //Part of configuring module resolution. See path mapping section
+        // https://github.com/Microsoft/TypeScript-Node-Starter#installing-dts-files-from-definitelytyped
+        //配置模块解析的一部分。参见路径映射部分
+        "paths": {
+            "*": [
+                "node_modules/*",
+                "src/types/*"
+            ]
+        }
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}
