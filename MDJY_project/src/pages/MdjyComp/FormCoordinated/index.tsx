@@ -5,15 +5,22 @@ import server from '../../../server/mdjyComp';
 
 const { Option } = Select;
 
-class App extends React.Component {
+interface RadarProps {
+    resBack: any;
+}
+class App extends React.Component<RadarProps> {
     props: any;
     handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
+        console.log(this.props);
         this.props.form.validateFields((err: any, values: any) => {
             if (!err) {
                 console.log('Received values of form: ', values);
-                server.serchMDJY().then(res => {
+                server.serchMDJY('?id=' + values.note).then(res => {
                     console.log(res);
+                    if (res.response == 'error') {
+                        this.props.resBack();
+                    }
                 });
             }
         });
@@ -32,7 +39,7 @@ class App extends React.Component {
                         // rules: [{ required: true, message: "Please input your note!" }]
                     })(<Input />)}
                 </Form.Item>
-                <Form.Item label="Gender">
+                {/* <Form.Item label="Gender">
                     {getFieldDecorator('gender', {
                         // rules: [{ required: true, message: "Please select your gender!" }]
                     })(
@@ -44,10 +51,10 @@ class App extends React.Component {
                             <Option value="female">female</Option>
                         </Select>,
                     )}
-                </Form.Item>
+                </Form.Item> */}
                 <Form.Item wrapperCol={{ span: 12, offset: 5 }}>
                     <Button type="primary" htmlType="submit">
-                        Submit
+                        搜索
                     </Button>
                 </Form.Item>
             </Form>
@@ -57,10 +64,15 @@ class App extends React.Component {
 
 const WrappedApp = Form.create({ name: 'coordinated' })(App);
 
-export default () => (
-    <div className={styles.container}>
-        <div id="components-form-demo-coordinated">
-            <WrappedApp />
-        </div>
-    </div>
-);
+export default class FormCoordinated extends React.Component<RadarProps> {
+    props: any;
+    render() {
+        return (
+            <div className={styles.container}>
+                <div id="components-form-demo-coordinated">
+                    <WrappedApp {...this.props} />
+                </div>
+            </div>
+        );
+    }
+}

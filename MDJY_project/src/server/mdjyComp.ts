@@ -4,8 +4,8 @@ class mdjyComp extends commonClass {
     constructor() {
         super();
     }
-    serchMDJY() {
-        return this.requestFun('/mdjy');
+    serchMDJY(str: string) {
+        return this.requestFun('/mdjy' + str);
     }
 }
 
