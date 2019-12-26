@@ -14,15 +14,28 @@ class mdjyRoute extends httpRouter {
     public router(app: any) {
         // http://asia.ensembl.org/Homo_sapiens/Ajax/search
         app.route('/mdjy').get(async (req: Request, res: Response) => {
-            console.log(req.query.id);
-            let id = req.query.id;
-            let str = serchURL.replace(/\${replaceURL}/g, id);
-            exportURL = exportURL.replace('${replaceThree}', id);
-            let response = await this.httpGet(str);
-            res.status(200).send({
-                message: 'GET request successfulll!!!!',
-                response: response.body,
-            });
+            try {
+                console.log(req.query.id);
+                let id = req.query.id;
+                let str = serchURL.replace(/\${replaceURL}/g, id); // 替换搜索条件ID
+                // exportURL = exportURL.replace('${replaceThree}', id);
+                let { body } = await this.httpGet(str); //获取搜索结果
+                body = JSON.parse(body);
+                let docsParams = body.result.response.docs[0];
+                let getSerchUrl = docsParams.domain + '/' + docsParams.domain_url; //获取下载地址
+                let responseURL = await this.httpGet(getSerchUrl);
+                // console.log(responseURL);
+                res.status(200).send({
+                    message: 'GET request successfulll!!!!',
+                    response: responseURL,
+                });
+            } catch (e) {
+                this.getErrorLog(e);
+                res.status(200).send({
+                    message: 'GET request successfulll!!!!',
+                    response: 'error',
+                });
+            }
         });
     }
 }

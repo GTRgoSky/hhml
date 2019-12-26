@@ -6,17 +6,22 @@ interface postINF {
 }
 
 class httpRouter {
-    constructor() {}
+    constructor() { }
     public async httpGet(url: string) {
         let res = await new Promise((r, j) => {
             console.log(url);
             request(url, (error: Error, response: any, body: any) => {
                 // console.log(error, response, body);
-                if (error) {
-                    commonLog.debug(error);
+                try {
+                    if (error) {
+                        this.getErrorLog(error);
+                        r({ body: 'error' });
+                    }
+                    r({ response, body: body });
+                } catch (e) {
+                    this.getErrorLog(e);
                     r({ body: 'error' });
                 }
-                r({ response, body: JSON.parse(body) });
             });
         });
         return res;
@@ -32,11 +37,14 @@ class httpRouter {
                 },
                 body: body, //post参数字符串
             },
-            function(error: Error, response: any, body: any) {
+            function (error: Error, response: any, body: any) {
                 if (!error && response.statusCode == 200) {
                 }
             },
         );
+    }
+    public getErrorLog(error: any) {
+        commonLog.debug(error);
     }
 }
 
