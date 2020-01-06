@@ -46,6 +46,11 @@ class httpRouter {
     public getErrorLog(error: any) {
         commonLog.debug(error);
     }
+
+    public httpSend(res: any, body: Object) {
+        console.log('*****send message end*****');
+        res.status(200).send(body);
+    }
 }
 
 module.exports = httpRouter;

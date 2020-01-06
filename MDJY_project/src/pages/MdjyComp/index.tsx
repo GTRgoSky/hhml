@@ -21,8 +21,12 @@ export default () => {
     }, []);
 
     let testRef = function(res: string | boolean) {
-        console.log(res);
         modalRef.current.showModal(res);
+    };
+
+    let testRefT = function(res: string | boolean) {
+        console.log(res);
+        modalRef.current.showModalT(res);
     };
 
     return (
@@ -33,6 +37,11 @@ export default () => {
                     if (res) testRef(res);
                 }}
             />
+            <iframe
+                className={styles.iframecls}
+                src="http://www.ncbi.nlm.nih.gov/orffinder/"
+            ></iframe>
+
             <div
                 style={{
                     paddingTop: 100,

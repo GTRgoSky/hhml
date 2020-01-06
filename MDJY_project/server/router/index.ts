@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 const routerMapList = require('./router.map.js');
+const path = require('path');
 let wingsTime = require('wing-time').timeFormat('YYYY-MM-DD hh:mm:ss');
 
 export default class Routes {
@@ -27,5 +28,11 @@ export default class Routes {
             let routerConfig = require(el);
             routerConfig.router(app);
         });
+
+        app.route('/html').get(async (req: Request, res: Response, next: NextFunction) => {
+            console.log('get html');
+            res.sendFile(path.join(__dirname, '../../dist/index.html'));
+        });
+
     }
 }

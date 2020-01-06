@@ -55,7 +55,7 @@ const config: IConfig = {
             },
         ],
     ],
-    chainWebpack: function(webpackConfigP: any, { webpack }) {
+    chainWebpack: function (webpackConfigP: any, { webpack }) {
         // webpack.disableCSSModules = true;
         // webpackConfigP.module
         //     .rule('less')

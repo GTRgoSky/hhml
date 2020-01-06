@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './index.less';
 import { Alert } from 'antd';
 
-const onClose = e => {
+const onClose = (e: any) => {
     console.log(e, 'I was closed.');
 };
 
