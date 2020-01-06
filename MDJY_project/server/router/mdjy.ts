@@ -22,7 +22,7 @@ class mdjyRoute extends httpRouter {
                 getSerchBody = JSON.parse(getSerchBody);
                 let docsParams = getSerchBody.result.response.docs[0];
                 let getSerchUrl = docsParams.domain + '/' + docsParams.domain_url; //获取下载地址
-                let {body : responseURL} = await this.httpGet(getSerchUrl);// 匹配下载得路径 ; 匹配下载得真实路径提取关键字段g,r,t
+                let { body : responseURL } = await this.httpGet(getSerchUrl);// 匹配下载得路径 ; 匹配下载得真实路径提取关键字段g,r,t
                 let getStrList = responseURL.match(/\/Homo_sapiens\/Export\/Configure\/Transcript\?\S+/)[0].replace(/\"/g, '').match(/\?\S+/)[0].substr(1).split(';');
                 getStrList.map((el:string) => {
                     exportURL += ';' + el

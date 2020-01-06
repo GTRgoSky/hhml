@@ -19,7 +19,9 @@ class App extends React.Component<RadarProps> {
                 server.serchMDJY('?id=' + values.note).then(res => {
                     console.log(res);
                     if (res.response == 'error') {
-                        this.props.resBack();
+                        this.props.resBack(false);
+                    } else {
+                        this.props.resBack(res.response);
                     }
                 });
             }
