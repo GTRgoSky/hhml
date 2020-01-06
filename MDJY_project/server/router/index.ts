@@ -2,6 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 const routerMapList = require('./router.map.js');
 const path = require('path');
 let wingsTime = require('wing-time').timeFormat('YYYY-MM-DD hh:mm:ss');
+import mockData from '../mock/index';
+console.log(mockData);
 
 export default class Routes {
     constructor() {
@@ -24,14 +26,27 @@ export default class Routes {
                 next();
             }
         });
+
         routerMapList.map((el: string) => {
             let routerConfig = require(el);
             routerConfig.router(app);
         });
 
-        app.route('/html').get(async (req: Request, res: Response, next: NextFunction) => {
+        app.route('/').get(async (req: Request, res: Response, next: NextFunction) => {
             console.log('get html');
             res.sendFile(path.join(__dirname, '../../dist/index.html'));
+        });
+
+        app.route('/api/currentUser').get(async (req: Request, res: Response, next: NextFunction) => {
+            res.status(200).send(mockData.currentUser);
+        });
+
+        app.route('/api/project/notice').get(async (req: Request, res: Response, next: NextFunction) => {
+            res.status(200).send(mockData.notice);
+        });
+
+        app.route('/api/fake_chart_data').get(async (req: Request, res: Response, next: NextFunction) => {
+            res.status(200).send(mockData['fake_chart_data']);
         });
 
     }
