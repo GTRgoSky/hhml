@@ -42,7 +42,7 @@ class App extends Component {
     this.setState({
       historyList : JSON.parse(history) || []
     })
-    useList = JSON.parse(history);
+    useList = JSON.parse(history) || [];
   };
   historySerch = (item) => {
     console.log(item);

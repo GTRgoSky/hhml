@@ -20,12 +20,27 @@ app.use(cors({
   allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
 }))
 
+
+app.use(async (ctx, next) => {
+  await next();
+  const rt = ctx.response.get('X-Response-Time');
+  console.log(`${ctx.method} ${ctx.url} - ${rt}`);
+});
+
+app.use(async (ctx, next) => {
+  const start = Date.now();
+  await next();
+  const ms = Date.now() - start;
+  ctx.set('X-Response-Time', `${ms}ms`);
+});
+
 app.use(static(
   // path.join(__dirname, './hhlh/build')
   path.join(__dirname, './hhlh_update/dist')
 ))
 
 app.use(async (ctx, next) => {
+  console.log('main', ctx.request)
   if (ctx.request.url == '/getInner') {
     let postData = await parsePostData(ctx);
     console.log(new Date());
@@ -98,29 +113,18 @@ app.use(async (ctx, next) => {
     }
     return queryData;
   }
+
+  await next();
 })
 
-app.use(async (ctx, next) => {
-  console.log(ctx.request.url)
-  await next();
-  const rt = ctx.response.get('X-Response-Time');
-  console.log(`${ctx.method} ${ctx.url} - ${rt}`);
-});
 
-app.use(async (ctx, next) => {
-  const start = Date.now();
-  await next();
-  const ms = Date.now() - start;
-  ctx.set('X-Response-Time', `${ms}ms`);
-});
 
-app.use(async ctx => {
-  console.log(123);
-  // ctx.body = 'Hello World';y
-  ctx.response.type = 'html';
-  // ctx.response.body = await fs.readFile('./hhlh/build/index.html', 'utf8');
-  ctx.response.body = await fs.readFile('./hhlh_update/dist/index.html', 'utf8');
-});
+// app.use(async ctx => {
+//   // ctx.body = 'Hello World';y
+//   ctx.response.type = 'html';
+//   // ctx.response.body = await fs.readFile('./hhlh/build/index.html', 'utf8');
+//   ctx.response.body = await fs.readFile('./hhlh_update/dist/index.html', 'utf8');
+// });
 
 
 
@@ -131,7 +135,7 @@ app.listen(8890);
 
 // http.createServer(app.callback()).listen(3000);
 // https.createServer(app.callback()).listen(3001);
-console.log('app started at port: http://localhost:8890');
+console.log('hhml started at port: http://localhost:8890');
 
 llq.exec('start http://localhost:8890');
 
